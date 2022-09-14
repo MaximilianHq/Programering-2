@@ -89,12 +89,6 @@ while validateUsername(name) == False:
 if validateUsername(name) == True:
     slowprint("Username valid!")
 
-file = open("account/user.txt", "w")
-str_dictionary = repr(name)
-file.write("name = " + str_dictionary + "\n")
-
-file.close()
-
 #ask for new password
 passwd=input("Insert your new password: ")
 
@@ -105,5 +99,13 @@ while validatePasswd(passwd) == False:
 #validation information
 if validatePasswd(passwd) == True:
     slowprint("Password valid!")
+    
+file = open("account/user.txt", "w")
+str_dictionary = repr(name)
+file.write("username = " + str_dictionary + "\n")
+str_dictionary = repr(passwd)
+file.write("password = " + str_dictionary + "\n")
+
+file.close()
 
 print("Welcome "+ name+ "!")

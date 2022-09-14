@@ -1,1 +1,2 @@
-name = 'MaximilianH'
+username = 'MaximilianH'
+password = 'asdadsdDD4¤'
