@@ -15,7 +15,7 @@ specialChar = ['!', '@', '#', '£', '¤', '$', '%', '&', '/', '{', '}', '(', ')'
 def validateUsername(name):
     
     #declare how many characters the username must contain
-    if len(name) <= 5 or len(name) >= 15:
+    if len(name) < 5 or len(name) > 15:
         slowprint("Username must contain between 5-15 characters")
         return False
     
@@ -37,7 +37,7 @@ def validateUsername(name):
 def validatePasswd(passwd):
     
     #declare how many characters the password must contain
-    if len(passwd) <= 8 or len(passwd) >= 16:
+    if len(passwd) < 8 or len(passwd) > 16:
         slowprint("Password must contain between 8-16 characters")
         return False
         
@@ -100,11 +100,9 @@ while validatePasswd(passwd) == False:
 if validatePasswd(passwd) == True:
     slowprint("Password valid!")
     
+    
 file = open("account/user.txt", "w")
-str_dictionary = repr(name)
-file.write("username = " + str_dictionary + "\n")
-str_dictionary = repr(passwd)
-file.write("password = " + str_dictionary + "\n")
+file.write("username = " + repr(name) + " " + "password = " + repr(passwd) + "\n")
 
 file.close()
 

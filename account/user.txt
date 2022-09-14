@@ -1,2 +1,1 @@
-username = 'MaximilianH'
-password = 'asdadsdDD4¤'
+username = 'Maximilian' password = '#NTIärbeast123'
