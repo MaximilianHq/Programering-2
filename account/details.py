@@ -89,7 +89,7 @@ while validateUsername(name) == False:
 if validateUsername(name) == True:
     slowprint("Username valid!")
 
-file = open("users.txt", "w")
+file = open("account/user.txt", "w")
 str_dictionary = repr(name)
 file.write("name = " + str_dictionary + "\n")
 
