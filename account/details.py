@@ -9,7 +9,8 @@ def slowprint(s):
 		time.sleep(1./25) #change the denominators value to change type speed
 
 #define special characters
-specialChar = ['!', '@', '#', '£', '¤', '$', '%', '&', '/', '{', '}', '(', ')', '[', ']', '=', '?', '+', '-', '.', '*', '^', '¨', '~', '<', '>', '|']
+specialChar = ['!', '@', '#', '£', '¤', '$', '%', '&', '/', '{', '}', '(', ')', '[', ']', 
+               '=', '?', '+', '-', '.', ',', '*', '^', '¨', '~', '<', '>', '|', '-', '_']
 
 #validate the username
 def validateUsername(name):
@@ -100,10 +101,10 @@ while validatePasswd(passwd) == False:
 if validatePasswd(passwd) == True:
     slowprint("Password valid!")
     
-    
-file = open("account/user.txt", "w")
-file.write("username = " + repr(name) + " " + "password = " + repr(passwd) + "\n")
-
+#save the credentials on separate file inside the account folder
+file = open("account/user.txt", "a")
+file.write("username = " + repr(name) + " " + "password = " + repr(passwd))
 file.close()
 
+#welcome the new user
 print("Welcome "+ name+ "!")
