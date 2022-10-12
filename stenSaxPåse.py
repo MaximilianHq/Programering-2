@@ -76,6 +76,7 @@ class GameRound:
         #if the game is unsettled, p1 becomes no one
         else:
             p1.name="obestämd"
+            p1.points="_"
             return p1
     
     #compare moves and declare the round winner
