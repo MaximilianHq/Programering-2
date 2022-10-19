@@ -2,28 +2,62 @@ import pygame, random
 
 class Player:
     
+    
     #variables
-    def __init__(self, x, y):
-        self.x=x
-        self.y=y
+    def __init__(self, rgb):
         self.size=19
-        self.evospd=0.1
-        self.yspd=1
-        self.xspd=2
-        self.width=400
-        self.height=250
+        self.evospd=0.2
+        self.speed = 30
+        spdy=[0.5, -0.5]
+        spdx=[1, -1]
+        self.yspd=random.choice(spdy)
+        self.xspd=random.choice(spdx)
+        self.width=410
+        self.height=235
         
-        self.r=0
-        self.g=0
-        self.b=0
+        self.star_d=1000
         
-        self.crash_sound = pygame.mixer.Sound("boop.wav")
+        self.x=random.randint(self.size, self.width-self.size)
+        self.y=random.randint(self.size, self.height-self.size)
         
-    #player transformation
-    def update(self):
-        self.size += self.evospd
-        if(self.size >= 20 or self.size <= 17.5):
-            self.evospd = -self.evospd
+        self.rgb=rgb
+        if rgb=="white":
+            self.color=255,255,255
+            self.give_p=0
+        if rgb=="red":
+            self.color=255,0,0
+            self.give_p=1
+        if rgb=="blue":
+            self.color=0,255,0
+            self.give_p=2
+        if rgb=="green":
+            self.color=0,0,255
+            self.give_p=3
+        if rgb=="star":
+            self.color=0,0,0
+            self.give_p=5
+            spdy=[5, -5]
+            spdx=[10, -10]
+            self.yspd=random.choice(spdy)
+            self.xspd=random.choice(spdx)
+            
+        
+        self.sounds = [pygame.mixer.Sound("boop.wav"), 
+                       pygame.mixer.Sound("boop2.wav"),
+                       pygame.mixer.Sound("boop3.wav")]
+        
+    def star(self):
+        r=random.randint(0,255)
+        g=random.randint(0,255)
+        b=random.randint(0,255)
+        self.color=r,g,b
+        
+        self.star_d-=1
+
+        if self.star_d==0:
+            self.size=0
+            self.yspd=0
+            self.xspd=0
             
     #move function
     def move(self, dir):
@@ -36,34 +70,31 @@ class Player:
     def flipDir(self, dir):
         if(dir=="x"):
             self.xspd = -self.xspd
-        elif(dir=="y"):
+        if(dir=="y"):
             self.yspd = -self.yspd
+            
+        #give and display points based on color
+        Player.points+=self.give_p
+        print(Player.points)
         
-        pygame.mixer.Sound.play(self.crash_sound)
+        
+        pygame.mixer.Sound.play(self.sounds[random.randint(0, len(self.sounds)-1)])
         
     #light up border when hit
     def border_hit(self, screen):
-        rgbr=self.r, self.g, self.b
         #y top
         if self.y < 0+self.size:
-            pygame.draw.line(screen, (rgbr), [0, 0], [self.width, 0], 10)
+            pygame.draw.line(screen, (self.color), [0, 0], [self.width, 0], 8)
         #x right
-        elif self.x > self.width-self.size:
-            pygame.draw.line(screen, (rgbr), [self.width, 0], [self.width, self.height], 10)
+        if self.x > self.width-self.size:
+            pygame.draw.line(screen, (self.color), [self.width, 0], [self.width, self.height], 12)
         #y bottom 
-        elif self.y > self.height-self.size:
-            pygame.draw.line(screen, (rgbr), [self.width, self.height], [0, self.height], 10)
+        if self.y > self.height-self.size:
+            pygame.draw.line(screen, (self.color), [self.width, self.height], [0, self.height], 12)
         #x left 
-        elif self.x < 0+self.size:
-            pygame.draw.line(screen, (rgbr), [0, self.height], [0, 0], 10) 
-         
-    #randomize rgb values   
-    def color_shift(self, n):
-        if n=="true":
-            self.r=random.randint(0,255)
-            self.g=random.randint(0,255)
-            self.b=random.randint(0,255)
+        if self.x < 0+self.size:
+            pygame.draw.line(screen, (self.color), [0, self.height], [0, 0], 8) 
  
     #player attributes
     def draw(self, screen):
-        pygame.draw.circle(screen,(self.r, self.g, self.b),(self.x, self.y), self.size)
+        pygame.draw.circle(screen,(self.color),(self.x, self.y), self.size)
