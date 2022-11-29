@@ -12,43 +12,42 @@ player=game_objects.Player()
 player_border=game_objects.Player()
 loot=game_objects.Loot()
 
-body=[]
-body.append(player)
-body_border=[]
-body_border.append(player)
+#TODO skapa array med delar av kroppen se bild
 
 food=[]
 food.append(game_objects.Loot())
 
 while True:
     key=pygame.key.get_pressed()
-    
+    #input detection
     for event in pygame.event.get():
         if key[pygame.K_w]:
-            player.move("up")
+            player.direction("up")
         if key[pygame.K_s]:
-            player.move("down")
+            player.direction("down")
         if key[pygame.K_a]:
-            player.move("left")
+            player.direction("left")
         if key[pygame.K_d]:
-            player.move("right")
+            player.direction("right")
             
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
             
+    #detect if snake collides with LOOT
     for i,loot in enumerate(food):
-        if player.x==loot.x and player.y==loot.y:
+        if player.position.x==loot.position.x and \
+            player.position.y==loot.position.y: #TODO position==position
             loot.color=0,0,0
             food.pop(i)
             food.append(game_objects.Loot())
             loot.locations=[]
+            player.length+=1
         loot.draw(DISPLAYSURF)
             
     pygame.display.update()
-    clock.tick(60)
-    
-    player.update()
+    clock.tick(60)#TODO gör mig till rätt tick
+    player.update(DISPLAYSURF)
 
     #display player
     player.draw_border(DISPLAYSURF)
