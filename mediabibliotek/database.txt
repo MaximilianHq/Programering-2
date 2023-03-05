@@ -1,0 +1,4 @@
+book : Ångest bädden och ögat : 1234 pages
+movie : Asdasd : 1234 min : 123p
+<functions.Book object at 0x0000020245CE3D00>
+<functions.Book object at 0x000001FFF32D3D00>
