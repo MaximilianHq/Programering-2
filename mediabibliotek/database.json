@@ -1,0 +1,22 @@
+[
+  {
+    "type": "filler",
+    "title": "filler"
+  },
+  {
+    "type": "_book",
+    "title": "St\u00f6rst av allt",
+    "pages": "375"
+  },
+  {
+    "type": "_soundtrack",
+    "title": "Talibaner",
+    "playTime": "3"
+  },
+  {
+    "type": "_movie",
+    "title": "Titanic",
+    "resolution": "2160",
+    "playTime": "200"
+  }
+]
