@@ -4,8 +4,9 @@ import time
 import json
 
 #load database
-with open('mediabibliotek/database.json', 'r', encoding='utf-8') as json_file:
-    dicts = json.load(json_file)
+with open('mediabibliotek/database.json', 'r', encoding='utf-8') as file:
+    dicts = json.load(file)
+    file.close()
 
 def slowprint(s):
 	for c in s + '\n':
