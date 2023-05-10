@@ -1,9 +1,28 @@
 [
    {
-      "Namn": "Max",
+      "Namn": "asdhju",
       "Provision": 0.2,
-      "F\u00f6rs\u00e4ljning": 2345,
-      "type": "salesman",
-      "salary": 1000
+      "F\u00f6rs\u00e4ljning": 3412,
+      "Typ": "S\u00e4ljare"
+   },
+   {
+      "Namn": "qsd",
+      "Provision": 0.2,
+      "F\u00f6rs\u00e4ljning": 3412,
+      "Typ": "S\u00e4ljare"
+   },
+   {
+      "Namn": "asd",
+      "Provision": 0.2,
+      "F\u00f6rs\u00e4ljning": 1234,
+      "Typ": "S\u00e4ljare",
+      "L\u00f6n": 246.8
+   },
+   {
+      "Namn": "adhs",
+      "Provision": 0.5,
+      "F\u00f6rs\u00e4ljning": 98671234,
+      "Typ": "S\u00e4ljare",
+      "L\u00f6n": 49335617.0
    }
 ]

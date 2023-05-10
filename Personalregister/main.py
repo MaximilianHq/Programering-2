@@ -7,7 +7,7 @@ salesman = Salesman()
 clerk = Clerk()"""
 
 # create registry
-registry = Register()
+registry = Window('registry', ['Namn', 'Typ', 'Lön'])
 
 # creating a window for the gui
 window = Tk()
