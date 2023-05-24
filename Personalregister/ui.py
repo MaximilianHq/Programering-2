@@ -1,7 +1,7 @@
 from tkinter import *
 
 # a class for creating input fields in the gui
-class Input_Field:
+class InputField:
     def __init__(self, text):
         self.text = text
         self.entry = None
