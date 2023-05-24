@@ -1,6 +1,8 @@
 from tkinter import *
 
 # a class for creating input fields in the gui
+
+
 class InputField:
     def __init__(self, text):
         self.text = text
@@ -18,16 +20,3 @@ class InputField:
         entry = Entry(frame)
         entry.grid(row=row, column=1, padx=(10, 5), pady=(0, 5))
         self.entry = entry
-
-
-class ListBox: 
-    def __init__(self, text):
-        self.text = text
-        
-    #displays values of every dict inside a list 
-    #(by adding every eployees salary in each dictionary,
-    # this code can be reused)
-    
-    def display(self, frame, row):
-        label = Label(frame, text=0) #TODO change text to *var, sep=':'
-        label.grid(row=row, column=0, padx=0, pady=0)
