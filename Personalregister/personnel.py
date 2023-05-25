@@ -273,8 +273,7 @@ class TotalSalary:
         Label(frame, text="Total Lönekostnad").grid(row=0, column=0)
 
         # create new entry
-        self.output = Entry(frame, state='disabled',
-                            disabledforeground='black')
+        self.output = Entry(frame, state='readonly')
         self.output.grid(row=1, column=0)
 
         # create update button
@@ -286,7 +285,7 @@ class TotalSalary:
         self.output.config(state='normal')
         self.output.delete(0, 'end')
         self.output.insert(0, f"{self.total_salary}")
-        self.output.config(state='disabled')
+        self.output.config(state='readonly')
 
 
 #################### MAIN ####################
