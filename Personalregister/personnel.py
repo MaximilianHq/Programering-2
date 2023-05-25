@@ -3,10 +3,6 @@ from ui import *
 from typing import Union
 import json
 
-# globals
-height = 35  # px
-width = 35  # px
-
 
 class Staff:
 
@@ -19,14 +15,13 @@ class Staff:
         self.frame = None
         self.warn_label = None
 
-    # create entries
-    def make_fields(self, entries: list) -> list:
+    def create_fields(self, entries: list) -> list:
         fields = list()
+        # create a new InputField for every entry
         for input in entries:
             fields.append(InputField(input[0]))
         return fields
 
-    # displaying the staff object in a labeled frame with a button to register it
     def display(self, root, row, column, padx: Union[int, tuple] = 0, pady: Union[int, tuple] = 0):
         """
         Display the frame and its fields on the root window.
@@ -39,24 +34,25 @@ class Staff:
         """
         self.root = root
 
+        # create a new frame
         self.frame = LabelFrame(root, text=self.staff_type)
         self.frame.grid(row=row, column=column, padx=padx, pady=pady)
 
+        # display every field
         for index, field in enumerate(self.fields):
             field.display(self.frame, index)
 
+        # create button to register staff member
         button = Button(self.frame, text="Registrera",
                         command=lambda: [self.store_data(), update_display()])
         button.grid(row=len(self.fields)+2, column=0, columnspan=2, pady=5)
 
-    # getting the values of the input fields and appending them to a json file
-
     def store_data(self):
-        # validate data
+        # validate the data type
         for i, field in enumerate(self.fields):
             input_val = field.get_v()
 
-            # try to convert to other data staff_type
+            # try to convert to other (correct) data type
             try:
                 input_val = float(input_val)
                 if input_val % 1 == 0:
@@ -64,27 +60,31 @@ class Staff:
             except ValueError:
                 pass
 
-            # validate data staff_type
+            # compare to the entry list
             if type(input_val) == self.entries[i][1]:
                 self.attributes[field.text] = input_val
+            # if data does not match, create a warning label
             else:
-                if self.warn_label is None:  # Create the warning label only if it doesn't exist
+                if self.warn_label is None:
                     self.warn_label = Label(
                         self.frame, text='wrong data staff_type')
                     self.warn_label.grid(
                         row=len(self.fields)+1, column=0, columnspan=2)
                 return
 
-        # Remove the warning label if it exists
+        # Remove the warning label ifdata is valid
         if self.warn_label is not None:
             self.warn_label.destroy()
             self.warn_label = None
 
+        # create attributes and assign corresponding values
         self.attributes['Typ'] = self.staff_type
         self.attributes['Lön'] = self.calculate_salary()
 
+        # read and dump data to json file
         with open('Personalregister/database.json', 'r+') as file:
 
+            # check if file is empty 
             try:
                 staff = json.load(file)
             except json.JSONDecodeError:
@@ -93,11 +93,13 @@ class Staff:
 
             staff.append(self.attributes)
 
+            # write data to json file
             file.seek(0)
             json.dump(staff, file, indent=3)
 
     def calculate_salary(self) -> float:
-        raise NotImplementedError  # make function exclusive to children
+        # make this function exclusive to children of this class
+        raise NotImplementedError
 
 
 class Salesman(Staff):
@@ -106,7 +108,7 @@ class Salesman(Staff):
         self.staff_type = 'Säljare'
         self.entries = [['Namn', str], [
             'Provision', float], ['Försäljning', int]]
-        self.fields = self.make_fields(self.entries)
+        self.fields = self.create_fields(self.entries)
         super().__init__(self.staff_type, self.entries, self.fields)
 
     def calculate_salary(self) -> float:
@@ -121,7 +123,7 @@ class Consultant(Staff):
     def __init__(self):
         self.staff_type = 'Konsult'
         self.entries = [['Namn', str], ['Pay', int], ['Hours', int]]
-        self.fields = self.make_fields(self.entries)
+        self.fields = self.create_fields(self.entries)
         super().__init__(self.staff_type, self.entries, self.fields)
 
     def calculate_salary(self) -> float:
@@ -136,7 +138,7 @@ class Clerk(Staff):
     def __init__(self):
         self.staff_type = 'Kontorist'
         self.entries = [['Namn', str], ['Lön', int]]
-        self.fields = self.make_fields(self.entries)
+        self.fields = self.create_fields(self.entries)
         super().__init__(self.staff_type, self.entries, self.fields)
 
     def calculate_salary(self) -> float:
