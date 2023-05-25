@@ -1,22 +1,50 @@
 from tkinter import *
 
-# a class for creating input fields in the gui
-
 
 class InputField:
-    def __init__(self, text):
+
+    def __init__(self, text: str, placeholder: str):
         self.text = text
+        self.placeholder = placeholder
         self.entry = None
+        self.placeholder_shown = True
+        self.frame = None
 
-    # getting the value of the entry widget
+    def on_entry_focus_in(self, event: Event = None):
+        if self.placeholder_shown:
+            self.entry.delete(0, END)
+            self.entry.config(foreground='black')
+            self.placeholder_shown = False
+
+    def on_entry_focus_out(self, event: Event = None):
+        if self.entry.get() == '':  # empty
+            self.entry.insert(0, self.placeholder)
+            self.entry.config(foreground='grey')
+            self.placeholder_shown = True
+
     def get_v(self):
-        return self.entry.get()
+        entry_value = self.entry.get()
+        # clear entries
+        self.entry.delete(0, END)
+        self.frame.focus_set()
+        self.on_entry_focus_out()
+        # return entry value
+        return entry_value
 
-    # displaying the label and entry widgets in a given frame and row
-    def display(self, frame, row):
+    def display(self, frame: Frame, row: int):
+        self.frame = frame
+
+        # create entry label
         label = Label(frame, text=self.text)
-        label.grid(row=row, column=0, padx=0, pady=0, sticky=W)
+        label.grid(row=row, column=0, sticky=W)
 
-        entry = Entry(frame)
+        # create new entry
+        entry = Entry(frame, foreground='grey')
+        entry.insert(0, self.placeholder)
+
+        # bnd focus events to handle placeholder behavior
+        entry.bind('<FocusIn>', self.on_entry_focus_in)
+        entry.bind('<FocusOut>', self.on_entry_focus_out)
+
         entry.grid(row=row, column=1, padx=(10, 5), pady=(0, 5))
         self.entry = entry

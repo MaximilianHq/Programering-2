@@ -1,0 +1,21 @@
+[
+   {
+      "Namn": "Magnus Uggla",
+      "Provision": 0.2,
+      "F\u00f6rs\u00e4ljning": 30000,
+      "Typ": "S\u00e4ljare",
+      "L\u00f6n": 6000.0
+   },
+   {
+      "Namn": "Alex Kaponen",
+      "Timl\u00f6n": 160,
+      "Timmar": 48,
+      "Typ": "Konsult",
+      "L\u00f6n": 7680
+   },
+   {
+      "Namn": "P\u00e4r Jonsson",
+      "Typ": "Kontorist",
+      "L\u00f6n": 35000
+   }
+]
